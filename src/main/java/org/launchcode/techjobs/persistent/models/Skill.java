@@ -1,8 +1,12 @@
 package org.launchcode.techjobs.persistent.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Skill extends AbstractEntity {
@@ -11,6 +15,8 @@ public class Skill extends AbstractEntity {
     @Size(min = 3, max = 200, message = "Location must be between 3 to a 200 characters")
     private String description;
 
+    @ManyToMany(mappedBy="skills")
+    private List<Job> jobs = new ArrayList<>();
 
     public String getDescription() {
         return description;
@@ -22,4 +28,14 @@ public class Skill extends AbstractEntity {
 
     public Skill() {
     }
+
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
+    }
+
+
 }
